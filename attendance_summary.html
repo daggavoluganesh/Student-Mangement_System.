@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Summary</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+        }
+        h2 {
+            text-align: center;
+        }
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #2c3e50;
+            color: white;
+        }
+        .low {
+            background-color: #ffcccc;   /* 🔴 red light */
+            font-weight: bold;
+        }
+        .filter-box {
+            width: 90%;
+            margin: 20px auto;
+            text-align: center;
+        }
+        a {
+            margin: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Attendance Summary</h2>
+
+<div class="filter-box">
+    <a href="/admin/attendance-summary">All Students</a> |
+    <a href="/admin/attendance-summary?filter=low">Below 75%</a>
+</div>
+
+<table>
+    <tr>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Total Days</th>
+        <th>Present Days</th>
+        <th>Attendance %</th>
+    </tr>
+
+    {% for s in data %}
+    <tr class="{% if s[4] < 75 %}low{% endif %}">
+        <td>{{ s[0] }}</td>
+        <td>{{ s[1] }}</td>
+        <td>{{ s[2] }}</td>
+        <td>{{ s[3] }}</td>
+        <td>{{ s[4] }}%</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

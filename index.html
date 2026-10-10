@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body { font-family: Arial; background: #f4f6f8; }
+        .container { width: 70%; margin: auto; background: white; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #ccc; text-align: center; }
+        th { background: #2c3e50; color: white; }
+        a { text-decoration: none; margin-right: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="top-bar">
+        <b>👨‍🎓 Student Dashboard</b>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="card">
+        <h3>Your Result</h3>
+
+        <table>
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Result</th>
+            </tr>
+
+            {% for s in students %}
+            <tr>
+                <td>{{ s[0] }}</td>
+                <td>{{ s[1] }}</td>
+                <td>{{ s[2] }}</td>
+                <td>{{ s[3] }}</td>
+                <td>{{ s[4] }}</td>
+                <td>{{ s[5] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+<hr>
+<h3>📊 Attendance</h3>
+<p><b>{{ attendance_percentage }}%</b></p>
+
+{% if attendance_status == "OK" %}
+    <p style="color:green;font-weight:bold;">Status: OK</p>
+{% else %}
+    <p style="color:red;font-weight:bold;">Status: LOW</p>
+{% endif %}
+
+    <div class="card">
+        <a href="/student/change-password">🔑 Change Password</a>
+    </div>
+
+</div>
+
+</body>
+
+</html>

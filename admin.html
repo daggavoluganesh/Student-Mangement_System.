@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .menu {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .menu button {
+            margin: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background: #2c3e50;
+            color: white;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        input {
+            padding: 6px;
+            width: 150px;
+        }
+
+        .red { color: red; font-weight: bold; }
+        .green { color: green; font-weight: bold; }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <b>👨‍💼 Admin Dashboard</b>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- MENU BUTTONS -->
+    <div class="menu">
+        <button onclick="showSection('summary')">📊 Performance</button>
+        <button onclick="showSection('attendance')">📅 Attendance</button>
+        <button onclick="showSection('records')">🧾 Student Records</button>
+    </div>
+
+    <!-- PERFORMANCE SUMMARY -->
+    <div id="summary" class="card section">
+        <h3>Performance Summary</h3>
+        <p>
+            Total: {{ total }} |
+            Passed: {{ passed }} |
+            Failed: {{ failed }} |
+            Pass %: {{ pass_percentage }}%
+        </p>
+    </div>
+
+    <!-- ATTENDANCE -->
+    <div id="attendance" class="card section" style="display:none;">
+        <h3>📅 Attendance</h3>
+        <a href="/admin/attendance-auth">
+            <button>Mark Attendance</button>
+        </a>
+        <a href="/admin/attendance-summary">
+            <button>Attendance Summary</button>
+        </a>
+    </div>
+  
+    <!-- STUDENT RECORDS -->
+    <div id="records" class="section" style="display:none;">
+
+        <!-- SEARCH -->
+        <div class="card">
+            <h3>🔍 Search Student</h3>
+            <form method="GET" action="/admin/student-summary">
+             <input type="text" name="roll_no" placeholder="Enter Roll No" required>
+            <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- ADD -->
+        <div class="card">
+            <h3>➕ Add Student</h3>
+            <form method="POST" action="/admin/add">
+                <input type="text" name="roll_no" placeholder="Roll No" required>
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="text" name="subject" placeholder="Subject" required>
+                <input type="number" name="marks" placeholder="Marks" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+        <!-- UPDATE -->
+        <div class="card">
+            <h3>✏️ Update Marks</h3>
+            <form method="POST" action="/admin/update">
+                <input type="text" name="roll_no" placeholder="Roll No" required>
+                <input type="number" name="marks" placeholder="New Marks" required>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+
+        <!-- TABLE -->
+        <div class="card">
+            <h3>Student Records</h3>
+            <table>
+                <tr>
+                    <th>Roll</th>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                    <th>Result</th>
+                    <th>Action</th>
+                </tr>
+
+                {% for s in students %}
+                <tr>
+                    <td>{{ s[0] }}</td>
+                    <td>{{ s[1] }}</td>
+                    <td>{{ s[2] }}</td>
+                    <td>{{ s[3] }}</td>
+                    <td>{{ s[4] }}</td>
+                    <td class="{{ 'red' if s[3] < 75 else 'green' }}">
+                        {{ s[5] }}
+                    </td>
+                    <td>
+                        <form method="POST" action="/admin/delete">
+                            <input type="hidden" name="roll_no" value="{{ s[0] }}">
+                            <button>Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+function showSection(id) {
+    let sections = document.getElementsByClassName("section");
+    for (let i = 0; i < sections.length; i++) {
+        sections[i].style.display = "none";
+    }
+    document.getElementById(id).style.display = "block";
+}
+</script>
+
+</body>
+</html>

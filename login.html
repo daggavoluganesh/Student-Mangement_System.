@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body { font-family: Arial; background:#f4f6f8; }
+        .box {
+            width: 300px;
+            margin: 120px auto;
+            padding: 20px;
+            background: white;
+            text-align: center;
+            box-shadow: 0 0 8px #aaa;
+        }
+        input, select, button {
+            width: 90%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h3>Login</h3>
+
+    {% if message %}
+        <p style="color:red;">{{ message }}</p>
+    {% endif %}
+
+    <form method="POST">
+        <select name="role" required>
+            <option value="">Select Role</option>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+        </select>
+
+        <input type="text" name="username" placeholder="Roll No / Admin ID" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button type="submit">Login</button>
+        <p style="text-align:center;">
+    <a href="/student/forgot-password">Forgot Password?</a>
+</p>
+
+    </form>
+</div>
+
+
+</body>
+</html>

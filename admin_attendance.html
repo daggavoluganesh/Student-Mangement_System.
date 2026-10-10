@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mark Attendance</title>
+    <style>
+        body { font-family: Arial; background:#f4f6f8; }
+        .box {
+            width: 60%;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Mark Attendance</h2>
+
+    <form method="POST">
+        <input type="date" name="date" required><br><br>
+
+        {% for s in students %}
+            <input type="checkbox" name="present" value="{{ s[0] }}">
+            {{ s[0] }} - {{ s[1] }}<br>
+        {% endfor %}
+
+        <br>
+        <button type="submit">Submit Attendance</button>
+    </form>
+
+    <br>
+    <a href="/admin">⬅ Back to Admin</a>
+</div>
+
+</body>
+</html>

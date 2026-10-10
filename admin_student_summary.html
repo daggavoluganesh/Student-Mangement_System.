@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Summary</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+        }
+        .box {
+            background: white;
+            width: 70%;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>🎓 Student Academic Summary</h2>
+
+    <p><b>Roll No:</b> {{ student[0] }}</p>
+    <p><b>Name:</b> {{ student[1] }}</p>
+    <p><b>Attendance:</b>
+        {% if attendance %}
+            {{ attendance }}%
+        {% else %}
+            N/A
+        {% endif %}
+    </p>
+
+    <h3>📘 Subject-wise Marks</h3>
+
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Marks</th>
+        </tr>
+
+        {% for s in subjects %}
+        <tr>
+            <td>{{ s[0] }}</td>
+            <td>{{ s[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h3>📘 Academic Summary</h3>
+
+<p><b>Total Marks:</b> {{ total_marks }}</p>
+<p><b>CGPA:</b> {{ cgpa }}</p>
+
+{% if attendance %}
+<p><b>Attendance:</b> {{ attendance }}%</p>
+{% endif %}
+
+    <h3>🧮 Total Marks: {{ total_marks }}</h3>
+
+    <br>
+    <a href="/admin">⬅ Back to Dashboard</a>
+</div>
+
+</body>
+</html>

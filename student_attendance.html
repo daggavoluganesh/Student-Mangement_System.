@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Verification</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+        }
+        .box {
+            width: 350px;
+            margin: 150px auto;
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        p { color: red; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h3>Confirm Admin Password</h3>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <form method="POST">
+        <input type="password" name="password" placeholder="Admin Password" required>
+        <button type="submit">Verify</button>
+    </form>
+
+    <br>
+    <a href="/admin">⬅ Back</a>
+</div>
+
+</body>
+</html>
