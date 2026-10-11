@@ -14,7 +14,7 @@ This is a web-based Student Result Management System developed using Python Flas
 - Flask
 - HTML
 - CSS
-- SQLite
+- SQL
 
 ## Author
 Ganesh
